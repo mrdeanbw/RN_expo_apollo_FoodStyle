@@ -2,24 +2,19 @@ import React, { useState } from "react";
 import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, LogBox } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CardsList from "./src/screens/CardsList";
 import store from "./store";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
+
+LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 const Stack = createNativeStackNavigator();
-// lx@gmail.com 123456
+
 import { client } from "./src/graphql/client";
 export default function App() {
   const [loadingCache, setLoadingCache] = useState(true);
-
-  // useEffect(() => {
-  //   persistCache({
-  //     cache,
-  //     storage: AsyncStorage,
-  //   }).then(() => setLoadingCache(false))
-  // }, [])
-
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
@@ -37,12 +32,3 @@ export default function App() {
     </ApolloProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

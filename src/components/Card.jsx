@@ -12,48 +12,48 @@ import { FloatingAction } from "react-native-floating-action";
 import styles from "./CardStyle";
 import colors from "../constants/colors";
 
+const actions = [
+  {
+    text: "Share",
+    render: () => <Image source={ShareImg} style={styles.actionButtonIcon} />,
+    name: "bt_share",
+    position: 1,
+    textBackground: "transparent",
+    color: colors.greenTeal,
+    margin: 10,
+    animated: true,
+  },
+  {
+    text: "Duplicate",
+    icon: DuplicateImg,
+    name: "bt_duplicate",
+    position: 2,
+    render: () => (
+      <Image source={DuplicateImg} style={styles.actionButtonIcon} />
+    ),
+    animated: true,
+  },
+  {
+    text: "Delete",
+    icon: DeleteImg,
+    name: "bt_delete",
+    render: () => (
+      <Image source={DeleteImg} style={styles.actionButtonIcon} />
+    ),
+    position: 3,
+    animated: true,
+    textElevation: 10,
+  },
+];
+
 const Card = ({ data, onOptionPress, onDelete, onDuplicate, onShare }) => {
   const { id, name } = data;
   const [isSelected, setIsSelected] = useState(false);
-
-  const actions = [
-    {
-      text: "Share",
-      render: () => <Image source={ShareImg} style={styles.actionButtonIcon} />,
-      name: "bt_share",
-      position: 1,
-      textBackground: "transparent",
-      color: colors.greenTeal,
-      margin: 10,
-      animated: true,
-    },
-    {
-      text: "Duplicate",
-      icon: DuplicateImg,
-      name: "bt_duplicate",
-      position: 2,
-      render: () => (
-        <Image source={DuplicateImg} style={styles.actionButtonIcon} />
-      ),
-      animated: true,
-    },
-    {
-      text: "Delete",
-      icon: DeleteImg,
-      name: "bt_delete",
-      render: () => (
-        <Image source={DeleteImg} style={styles.actionButtonIcon} />
-      ),
-      position: 3,
-      animated: true,
-      textElevation: 10,
-    },
-  ];
-
   const handlePressItem = (name) => {
     if (name === "bt_share") onShare(id);
     else if (name === "bt_duplicate") onDuplicate(id);
     else if (name === "bt_delete") onDelete(id);
+    setIsSelected(false)
   };
   return (
     <View style={styles.cardContainer}>
